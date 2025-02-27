@@ -19,8 +19,16 @@ const userSchema = new Schema({
     phone: {
         type: String,
         required: true
+    },
+    created_at: {
+        type: Date,
+        required: false
+    },
+    updated_at: {
+        type: Date,
+        required: false
     }
 });
 
-const user = mongoose.model("User", userSchema);
-export default user;
+const User = mongoose.model("User", userSchema);
+export default User;
