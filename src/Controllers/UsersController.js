@@ -1,5 +1,6 @@
 import Argon2 from "argon2";
 import User from "../Models/User.js";
+import createUserToken from "../../helpers/create-token.js";
 
 export default class UserController {
     static async register(req, res) {
@@ -52,6 +53,30 @@ export default class UserController {
     }
 
     static async login(req, res) {
-        res.status(200).json({ message: "OK" });
+        const { email, password } = req.body;
+
+        if (!email) return res.status(422).json({ message: "Email é requerido" });
+
+        if (!password) return res.status(422).json({ message: "Senha é requerido" });
+
+        try {
+            // VERIFICANDO SE O USUÁRIO EXISTE
+            const user = await User.findOne({ email: email });
+
+            if (!user) return res.status(422).json({ message: "Credenciais inválidas!" });
+
+            const comparePassword = await Argon2.verify(user.password, password);
+
+            if (!comparePassword) return res.status(422).json({ message: "Credenciais inválidas!" });
+
+            // gerando tokene
+            await createUserToken(user, req, res);
+
+
+            //return res.status(200).json({ message: "Usuário logado com sucesso!" });
+        } catch (error) {
+            console.log("Erro ao logar usuário", error);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
     }
 }
