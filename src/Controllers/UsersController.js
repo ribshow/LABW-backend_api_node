@@ -54,12 +54,11 @@ export default class UserController {
 
     static async login(req, res) {
         const { email, password } = req.body;
-
-        if (!email) return res.status(422).json({ message: "Email é requerido" });
-
-        if (!password) return res.status(422).json({ message: "Senha é requerido" });
-
         try {
+            if (!email) return res.status(422).json({ message: "Email é requerido" });
+
+            if (!password) return res.status(422).json({ message: "Senha é requerido" });
+
             // VERIFICANDO SE O USUÁRIO EXISTE
             const user = await User.findOne({ email: email });
 
