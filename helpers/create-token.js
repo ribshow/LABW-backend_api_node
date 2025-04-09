@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
-import { promisify } from "util"; // transforma uma função de callback em uma promise
-
-export const signToPromise = promisify(jwt.sign);
+// import { promisify } from "util"; // transforma uma função de callback em uma promise
 
 const createUserToken = async (user, req, res) => {
     try {

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routes from "./Routes/User/routes.js";
+import routesPet from "./Routes/Pets/routes.js";
 
 const app = express();
 
@@ -10,8 +11,10 @@ app.use(cors({
     origin: "http://localhost:3000"
 }));
 
+app.use(express.static("public"));
 app.use("/users", routes);
-console.log("teste");
+app.use("/pets", routesPet);
+
 app.listen(5000,
     console.log("Server running on PORT 5000")
 )

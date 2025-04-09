@@ -48,7 +48,7 @@ const petSchema = new Schema({
         required: true
     },
     reward: {
-        type: Number,
+        type: String,
         required: false
     },
     user: {
@@ -59,8 +59,8 @@ const petSchema = new Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
+    images: {
+        type: Array,
         required: true
     },
     comment: {
