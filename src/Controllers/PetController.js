@@ -8,12 +8,15 @@ export default class PetController {
             , species, gender, size, local, landmark,
             date, reward, situation, comment } = req.body;
 
-        const image = req.files;
+        const images = req.files;
+        console.log(images);
+
+        console.log(req.body);
 
         // validações
         if (!color) return res.status(422).json({ message: "O campo cor é obrigatório" });
 
-        if (image.length === 0) return res.status(422).json({ message: "O campo imagem é obrigatório" });
+        if (images.length === 0) return res.status(422).json({ message: "O campo imagem é obrigatório" });
 
         try {
             const token = getToken(req);
@@ -30,7 +33,7 @@ export default class PetController {
                 , situation, images: [], comment
             })
 
-            image.map((image) => {
+            images.map((image) => {
                 pet.images.push(image.filename);
             })
 
