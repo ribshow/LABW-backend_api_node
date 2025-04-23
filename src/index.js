@@ -6,12 +6,14 @@ import routesPet from "./Routes/Pets/routes.js";
 const app = express();
 
 app.use(express.json());
+
+app.use(express.static("public"));
 app.use(cors({
     credentials: true,
     origin: "http://localhost:3000"
+
 }));
 
-app.use(express.static("public"));
 app.use("/users", routes);
 app.use("/pets", routesPet);
 

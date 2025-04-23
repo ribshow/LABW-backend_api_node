@@ -6,6 +6,6 @@ const routesPet = Router();
 
 // ROTAS DO PET
 routesPet.post("/store", imageUpload.array("images"), PetController.create);
-routesPet.get("/getAll", checkToken, PetController.getAll);
+routesPet.get("/getAll", PetController.getAll);
 
 export default routesPet;
