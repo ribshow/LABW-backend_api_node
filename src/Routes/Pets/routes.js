@@ -5,7 +5,13 @@ import imageUpload from "../../../helpers/image-upload.js";
 const routesPet = Router();
 
 // ROTAS DO PET
-routesPet.post("/store", imageUpload.array("images"), PetController.create);
-routesPet.get("/getAll", PetController.getAll);
+routesPet.post(
+  "/store",
+  checkToken,
+  imageUpload.array("images"),
+  PetController.create
+);
+routesPet.get("/getAll", checkToken, PetController.getAll);
+routesPet.get("/user", checkToken, PetController.getAllByUser);
 
 export default routesPet;

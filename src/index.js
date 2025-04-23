@@ -7,16 +7,15 @@ const app = express();
 
 app.use(express.json());
 
-app.use(express.static("public"));
-app.use(cors({
+app.use(express.static("./src/public"));
+app.use(
+  cors({
     credentials: true,
-    origin: "http://localhost:3000"
-
-}));
+    origin: "http://localhost:3000",
+  })
+);
 
 app.use("/users", routes);
 app.use("/pets", routesPet);
 
-app.listen(5000,
-    console.log("Server running on PORT 5000")
-)
+app.listen(5000, console.log("Server running on PORT 5000"));
