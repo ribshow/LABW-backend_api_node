@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import routes from "./Routes/User/routes.js";
 import routesPet from "./Routes/Pets/routes.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
-
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(express.static("./src/public"));

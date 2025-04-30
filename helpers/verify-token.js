@@ -2,14 +2,14 @@ import jwt from "jsonwebtoken";
 import getToken from "./get-token.js";
 
 const checkToken = (req, res, next) => {
-    if (!req.headers.authorization) {
+    if (!req.cookies.token) {
         return res.status(401).json({ message: "Acesso negado, verifique suas credenciais!" });
     }
 
     const token = getToken(req);
 
     if (!token) {
-        return res.status(401).json({ message: "Acesso negado ou token expirado!" });
+        return res.status(401).json({ message: "Acesso negado ou token expirado!", authenticated: false });
     }
 
     try {
@@ -20,7 +20,7 @@ const checkToken = (req, res, next) => {
 
     } catch (error) {
         console.log("Erro ao verificar token", error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error", authenticated: false });
     }
 }
 

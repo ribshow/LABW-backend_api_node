@@ -11,6 +11,17 @@ const createUserToken = async (user, req, res) => {
             { expiresIn: "1d" }
         );
 
+        res.cookie("token", token, {
+            // evita ataques (xss) de scripts maliciosos
+            httpOnly: true,
+            // true apenas quando for https
+            secure: false,
+            //
+            sameSite: "strict",
+            // expira em 1 hora
+            maxAge: 3600000
+        })
+
         return res.status(200).json({ message: "Logado com sucesso!", token: token, userId: user._id });
     } catch (error) {
         console.log("Erro ao gerar token", error);
