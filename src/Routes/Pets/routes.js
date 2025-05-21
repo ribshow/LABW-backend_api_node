@@ -11,7 +11,7 @@ routesPet.post(
   imageUpload.array("images"),
   PetController.create
 );
-routesPet.get("/getAll", checkToken, PetController.getAll);
+routesPet.get("/getAll", PetController.getAll);
 routesPet.get("/user", checkToken, PetController.getAllByUser);
 
 export default routesPet;
