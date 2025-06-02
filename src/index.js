@@ -7,11 +7,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use(express.static("./src/public"));
+app.use(cors({ origin: "*" }), express.static("./src/public"));
 app.use(
   cors({
-    credentials: true,
-    origin: "http://localhost:3000",
+    origin: "*",
+    allowedHeaders: "*",
   })
 );
 
