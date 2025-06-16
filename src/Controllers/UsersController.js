@@ -1,6 +1,7 @@
 import Argon2 from "argon2";
 import User from "../Models/User.js";
 import createUserToken from "../../helpers/create-token.js";
+import { sendMessage } from "../../helpers/send-sms.js";
 
 export default class UserController {
     static async register(req, res) {
@@ -75,7 +76,23 @@ export default class UserController {
             //return res.status(200).json({ message: "Usuário logado com sucesso!" });
         } catch (error) {
             console.log("Erro ao logar usuário", error);
-            return res.status(500).json({ message: "Internal Server Error" });
+            return res.status(500).json({ message: "Internal Server Error!" });
+        }
+    }
+
+    static async notification(req, res){
+        const { message } = req.body;
+        console.log(message);
+        if(!message) return res.status(422).json({message: "A mensagem é Obrigatória!"});
+
+        try {
+            //await sendMessage("+5514998283036");
+
+            res.status(200).json({message: "Mensagem enviada com sucesso!"});
+            
+        } catch (error) {
+            console.log("Erro ao enviar sms", error);
+            return res.status(500).json({message: "Internal Server Error!"});
         }
     }
 }
