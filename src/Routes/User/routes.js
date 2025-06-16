@@ -7,6 +7,6 @@ const routes = Router();
 // ROTAS DO USUÁRIO
 routes.post("/register", UsersController.register);
 routes.post("/login", UsersController.login);
-routes.post("/send-sms", UsersController.notification);
+routes.post("/send-sms", checkToken, UsersController.notification);
 
 export default routes;
